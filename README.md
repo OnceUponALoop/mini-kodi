@@ -52,6 +52,7 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
   
     This is where we define what we want to install
     
+      - `Standard System Utilities`
       - `Xubuntu minimal installation`
       - `OpenSSH Server`
-
+      - `Basic Ubuntu Server`
