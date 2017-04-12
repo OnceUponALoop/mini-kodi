@@ -18,7 +18,7 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
     
 ### 3. Go through the installation
 
-  - Select Install
+  - Select `Install Ubuntu Server`
   - Select Language Option(s)
   - Assign a hostname
 
@@ -30,7 +30,7 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
 
     | Real Name | User name | Password |
     | --------- | --------- | -------- |
-    | Kodi User | kodi      | ******** |
+    | kodi      | kodi      | ******** |
 
   - Don't encrypt home directory 
 
@@ -53,6 +53,41 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
     This is where we define what we want to install
     
       - `Standard System Utilities`
-      - `Xubuntu minimal installation`
       - `OpenSSH Server`
-      - `Basic Ubuntu Server`
+
+### 4. Configuration
+
+Now that the OS is installed it's time to install everything else we need.
+  - Log in as the user created earlier.
+    
+  - Update apt and initiate an upgrade `sudo apt update && sudo apt upgrade`
+    
+  - Install Xubuntu Core tasksel `sudo tasksel install xubuntu-core`
+  
+  - Add Kodi PPA Repository
+  `sudo add-apt-repository ppa:team-xbmc/ppa`
+  
+  - Update apt and install kodi
+  `sudo apt update && sudo apt install kodi`
+  
+  - Configure lightdm to start kodi on bootup
+    Create file `/etc/lightdm/lightdm.conf` with the content:
+    ```
+    [Seat:*]
+    autologin-user=kodi
+    autologin-user-timeout=0
+    autologin-session=kodi
+    greeter-session=lightdm-gtk-greeter
+    ```
+    
+  - Mount windows share, add the line to fstab
+    ```
+    # Mount PC Share
+    //192.168.1.100/E$ /home/kodi/Storage cifs rw,_netdev,uid=kodi,gid=kodi,user=USER,password=PASS 0 0
+    ```
+
+    
+
+  
+
+    
