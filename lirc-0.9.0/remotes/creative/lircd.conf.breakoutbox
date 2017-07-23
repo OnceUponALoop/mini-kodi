@@ -1,0 +1,55 @@
+#
+# contributed by Juergen Jaeschke <jaeschke.privat@gmx.de>
+#
+# brand:	     Creative
+# model:	     Creative BreakOut-Box Remote Control
+#
+
+begin remote
+
+  name		Creative_BreakOut-Box_IR
+  bits		8
+  eps		30
+  aeps		100
+  one           0     0
+  zero          0     0
+  gap           199984
+  toggle_bit	0
+
+      begin codes
+          DVD/CD                   0x0000000000000001
+          DVR/TV                   0x0000000000000000
+          KEY_MENU                     0x0000000000000003
+          KEY_LANGUAGE                     0x0000000000000005
+          PLAYLIST                 0x0000000000000011
+          KEY_REWIND                 0x000000000000000A
+          KEY_PLAY                     0x0000000000000008
+          KEY_FORWARD                  0x000000000000000F
+          LAST                     0x0000000000000002
+          KEY_STOP                     0x0000000000000007
+          KEY_NEXT                     0x0000000000000006
+          KEY_MUTE                     0x0000000000000014
+          STEP                     0x0000000000000009
+          KEY_UP                       0x000000000000000C
+          KEY_LEFT                     0x000000000000000B
+          KEY_RIGHT                    0x000000000000000D
+          KEY_DOWN                     0x000000000000000E
+          KEY_VOLUMEUP                     0x0000000000000012
+          KEY_VOLUMEDOWN                     0x0000000000000015
+          KEY_OK                       0x0000000000000011
+          ANGLE+                   0x0000000000000010
+          ANGLE-                   0x0000000000000013
+          KEY_RECORD                      0x0000000000000004
+          KEY_1                        0x0000000000000016
+          KEY_2                        0x0000000000000017
+          KEY_3                        0x0000000000000018
+          KEY_4                        0x0000000000000019
+          KEY_5                        0x000000000000001A
+          KEY_6                        0x000000000000001B
+          KEY_7                        0x000000000000001C
+          KEY_8                        0x000000000000001D
+          KEY_9                        0x000000000000001E
+          KEY_0                        0x000000000000001F
+      end codes
+
+end remote

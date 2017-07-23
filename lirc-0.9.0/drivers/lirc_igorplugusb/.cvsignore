@@ -1,0 +1,12 @@
+.deps
+.lirc_igorplugusb.o.flags
+.lirc_igorplugusb.ko.cmd
+.lirc_igorplugusb.mod.o.cmd
+.lirc_igorplugusb.o.cmd
+.tmp_versions
+lirc_igorplugusb.ko
+lirc_igorplugusb.mod.c
+Makefile.in
+Makefile
+Module.symvers
+Modules.symvers

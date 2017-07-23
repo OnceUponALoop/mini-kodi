@@ -1,0 +1,12 @@
+.deps
+.lirc_imon.o.flags
+.lirc_imon.ko.cmd
+.lirc_imon.mod.o.cmd
+.lirc_imon.o.cmd
+.tmp_versions
+lirc_imon.ko
+lirc_imon.mod.c
+Makefile.in
+Makefile
+Module.symvers
+Modules.symvers

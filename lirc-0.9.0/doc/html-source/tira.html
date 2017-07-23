@@ -1,0 +1,29 @@
+    <A NAME="overview"></A><HR>
+    <CENTER><H1>Home Electronics Tira</H1></CENTER>
+    
+    <P>
+      Ira/Tira devices can operate in two recording modes:
+    <ul>
+      <li>returning a 6 bytes length encoded information about the RC
+	signal or</li>
+      <li>returning a time table of the signal / space lengths in
+	microseconds.</li>
+    </ul>
+    
+    The purpose of 6 byte mode is controlling your PC with the remote
+    control while the timing mode is used to record reproducible IR
+    signals to control other devices (TV, amplifier, etc.).
+  </P>
+    <P>
+      LIRC includes two separate drivers for the Tira: <em>tira</em>
+      uses 6 bytes mode and supports transmitting of IR signals,
+      <em>tira_raw</em> uses timing mode. The hardware does not
+      support transmit in timing mode. If you want to transmit infra-red
+      signals with the Tira this means that you need to use the
+      <em>tira_raw</em> driver to create a config file with irrecord
+      and later have to use this config file to transmit with the
+      <em>tira</em> driver. But you need to create another config file
+      even for the same remote in 6 byte mode if you want to receive
+      from any remote because the config files created are not
+      compatible between the two modes of operation.
+    </P>

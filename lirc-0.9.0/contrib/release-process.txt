@@ -1,0 +1,71 @@
+LIRC release procedure (more or less)
+-------------------------------------
+
+Pre-requisites:
+- Compiles --with-driver=all without warnings
+- Encoder/decoder regression tests all pass
+- liblirc_client: version number change required?
+	current:release:age
+	http://www.gnu.org/software/libtool/manual/html_node/Libtool-versioning.html#Libtool-versioning
+- git master branch is committed and pushed
+
+
+Steps for a pre-release snapshot:
+1) Create a new git branch:
+	git checkout -b lirc-<version>-preX-branch
+2) Change version number from <version>-git to <version>-preX in:
+	index.html, ANNOUNCE, NEWS, setup.sh, configure.ac
+3) Commit, tag and push branch:
+	git commit -a -s -m "Update for lirc <version>-preX snapshot release"
+	git tag -a -m "lirc <version>-preX snapshot release" lirc-<version>-pre1
+	git push origin lirc-<version>-preX-branch
+4) Switch back to master:
+	git checkout master
+5) Clean checkout in new directory:
+	git clone -b lirc-<version>-preX-branch git://lirc.git.sourceforge.net/gitroot/lirc/lirc lirc-<version>-preX
+6) Create tarball:
+	./autogen.sh
+	cp INSTALL.txt INSTALL
+	./configure --with-driver=all --enable-sandboxed
+	make clean
+	make
+	make dist
+	make dist-bzip2
+7) Get it to Christoph to post at http://lirc.org/software/snapshots/
+
+Steps for a new release:
+1) Create a new git branch:
+	git checkout -b lirc-<version>-branch
+2) Change version number from <version>-git to <version> in:
+	index.html, ANNOUNCE, NEWS, setup.sh, configure.ac
+3) Commit, tag and push branch:
+	git commit -a -s -m "Update for lirc <version> release"
+	git tag -a -m "lirc <version> release" lirc-<version>
+	git push origin lirc-<version>-branch
+4) Switch back to master:
+	git checkout master
+5) Clean checkout in new directory:
+	git clone -b lirc-<version>-branch git://lirc.git.sourceforge.net/gitroot/lirc/lirc lirc-<version>
+6) Create tarball:
+	./autogen.sh
+	cp INSTALL.txt INSTALL
+	./configure --with-driver=all --enable-sandboxed
+	make clean
+	make
+	make dist
+	make dist-bzip2
+7) Upload tarball to sourceforge
+8) Back in original checkout, increment <version> in the files in step 2 for the next version
+
+
+Send announcement email to lirc-list@lists.sourceforge.net
+
+----8<----
+Blah blah
+
+<url>
+
+Changes since last release:
+<latest release contents of NEWS>
+----8<----
+

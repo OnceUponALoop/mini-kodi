@@ -1,0 +1,30 @@
+    <!-- alsa_usb ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <A NAME="alsa_usb"></A><HR>
+    <H1 ALIGN=CENTER>Using the alsa_usb driver</H1>
+
+    <P>
+      First make sure that you have the correct version of <A
+      HREF="http://www.alsa-project.org/">ALSA</A> installed (for the
+      SB Extigy/Audigy, this is 1.0.9). The alsa_usb module relies on
+      the alsa device names. /proc/asound/cards lists the number and
+      name of each recognized soundcard:
+    </P>
+    <PRE>
+~ # cat /proc/asound/cards
+0 [Extigy         ]: USB-Audio - Sound Blaster Extigy
+                     Creative Technology Ltd. Sound Blaster Extigy [...]
+1 [I82801DBICH4   ]: ICH4 - Intel 82801DB-ICH4
+                     Intel 82801DB-ICH4 with AD1981B at 0x24000800, irq 11
+2 [Modem          ]: ICH-MODEM - Intel 82801DB-ICH4 Modem
+                     Intel 82801DB-ICH4 Modem at 0x1400, irq 11
+    </PRE>
+    <P>
+      You need to pass the number or name prefixed with a hw: to
+      lircd. In this case lircd -d hw:0 or lircd -d hw:Extigy. It is
+      recommended to use the name, since it is independent of the
+      order in which the devices are discovered and lircd will exit,
+      if the Extigy is not connected.
+    </P>
+
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

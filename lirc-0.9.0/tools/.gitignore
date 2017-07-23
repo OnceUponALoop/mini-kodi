@@ -1,0 +1,13 @@
+ircat
+irexec
+irpty
+irsend
+irw
+irxevent
+lircrcd
+mode2
+pronto2lirc
+xmode2
+
+liblirc_client.la
+lirc_client.lo

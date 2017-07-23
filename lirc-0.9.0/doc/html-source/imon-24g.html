@@ -1,0 +1,50 @@
+		    <A NAME="overview"></A><HR>
+		    <CENTER><H1>iMON 2.4G DT/LT</H1></CENTER>
+
+		    <P>
+		      The asccociation process of the iMON 2.4G DT/LT remote.
+		    </P>
+		    
+		    <P>
+		      Due to the design (could probably have been
+		      better), an application needs to have an open
+		      connection to the lirc-daemon*, to allow the
+		      association process to start.
+		    </P>
+
+		    <P>
+		      To associate the remote you need 2 terminals.
+		    <DL>
+
+		      <DT>1 To:</DT><DD>Find the &quot;sys&quot; entry and
+			start the association process</DD>
+		  
+		      <DT>2 To:</DT><DD>Start a process that has a connection
+		      open to the lirc-daemon</DD>
+		      
+		    </DL>
+
+		    The example is shown for bash but sould be quite easy to adapt for (t)csh
+<PRE>
+ Term #1                                    | Term #2
+--------------------------------------------+----------------------------------------
+# file=`find /sys -name associate_remote`   |
+                                            |# irw
+# echo > $file                              |
+--------------------------------------------+----------------------------------------
+</PRE>
+		    Then you hold down a button on the remote. And soon the
+		    &quot;irw&quot; process should start to spit out keycodes.
+
+
+		    Just stop <EM>(Ctrl-C)</EM> the &quot;irw&quot; process,
+		    and you should be good to go.
+
+		    <DIV WIDHT="25%"><HR WIDTH="25%" ALIGN="LEFT"></DIV>
+
+		    *) This is because the USB device connection is
+		    only initialized when the lirc-daemon gets a
+		    connection to an application, and when it is
+		    closed, the USB device connection gets closed
+		    too. So only in this period it is possible to send
+		    packages to the usb-device.

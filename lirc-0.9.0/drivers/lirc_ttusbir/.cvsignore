@@ -1,0 +1,12 @@
+.deps
+.lirc_ttusbir.o.flags
+.lirc_ttusbir.ko.cmd
+.lirc_ttusbir.mod.o.cmd
+.lirc_ttusbir.o.cmd
+.tmp_versions
+lirc_ttusbir.ko
+lirc_ttusbir.mod.c
+Makefile.in
+Makefile
+Module.symvers
+Modules.symvers

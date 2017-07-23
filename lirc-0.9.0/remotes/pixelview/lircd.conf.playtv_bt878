@@ -1,0 +1,54 @@
+#
+# contributed by Michal Kochanowicz <mkochano@pld.org.pl>
+# based on file contributred by Nathan Hand <nathanh@chirp.com.au>
+#
+# brand:             PixelView
+# model:             BT878+W/FM
+# supported devices: PixelView BT878+W/FM
+#
+
+begin remote
+  name  PixelView
+  bits  8
+#  repeat_bit 2
+  repeat 9080 2189
+  gap 108056
+  repeat_bit 0
+
+  begin codes
+    KEY_POWER                    0x00000000000000aa
+    TV/FM                    0x00000000000000e7
+    TELETEXT                 0x000000000000003f
+    SCAN                     0x0000000000000041
+    +/-                      0x0000000000000069
+    KEY_EJECTCD                    0x000000000000002a
+    KEY_STOP                     0x000000000000008a
+    SOURCE                   0x00000000000000e1
+    STEREO                   0x00000000000000df
+    KEY_ENTER                    0x000000000000005f
+    KEY_NEXT                0x0000000000000067
+    KEY_FORWARD                 0x00000000000000c7
+    KEY_CHANNELUP                    0x0000000000000049
+    KEY_VOLUMEUP                   0x000000000000004a
+    RECALL                   0x0000000000000048
+    KEY_PAUSE                    0x0000000000000068
+    KEY_PLAY                     0x00000000000000ca
+    KEY_CHANNELDOWN                  0x00000000000000c1
+    KEY_VOLUMEDOWN                 0x000000000000006a
+    KEY_PREVIOUS                0x000000000000000a
+    KEY_BACK                0x0000000000000042
+    KEY_ZOOM                     0x00000000000000bf
+    KEY_MUTE                     0x0000000000000047
+    KEY_1                        0x00000000000000e0
+    KEY_2                        0x00000000000000c8
+    KEY_3                        0x00000000000000e8
+    KEY_4                        0x0000000000000060
+    KEY_5                        0x0000000000000062
+    KEY_6                        0x00000000000000c9
+    KEY_7                        0x00000000000000c0
+    KEY_8                        0x00000000000000c2
+    KEY_9                        0x0000000000000061
+    KEY_0                        0x0000000000000040
+  end codes
+end remote
+

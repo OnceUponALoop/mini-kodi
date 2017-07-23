@@ -1,0 +1,73 @@
+#
+#  Config file for AOpen XC Cube EA65, EA65-II
+#  Max Krasnyanskiy <maxk@qualcomm.com>
+#
+
+begin remote
+  name  EA65
+  bits  24
+  eps   10
+  aeps  100
+
+  gap           960000
+  toggle_bit    0
+
+  begin codes
+	tv/pvr      0x0014814c
+        photo       0x0017810e
+        htpc        0x0011811b
+        dvd/vcd     0x00128100
+        cd/mp3      0x00138152
+        KEY_RADIO          0x00158111
+        KEY_VIDEO       0x0016810f
+
+        KEY_1           0x0041810b
+        KEY_2           0x00428115
+        KEY_3           0x00438112
+        KEY_4           0x00448141
+        KEY_5           0x00458119
+        KEY_6           0x00468116
+        KEY_7           0x00478150
+        KEY_8           0x0048811a
+        KEY_9           0x00498155
+        *           0x00328156
+        KEY_0           0x00408158
+        #           0x0030814d
+        
+        KEY_MENU        0x00188104
+        KEY_EXIT        0x001d8154
+        KEY_ENTER       0x001e8101
+        KEY_UP          0x00198159
+        KEY_DOWN        0x001a811c
+        KEY_LEFT        0x001c8102
+        KEY_RIGHT       0x001b815d
+
+ 	KEY_VOLUMEUP        0x00298103
+ 	KEY_VOLUMEDOWN        0x002a814e
+ 	KEY_CHANNELUP         0x002c8113
+ 	KEY_CHANNELDOWN         0x002d8117
+ 	KEY_MUTE        0x00288105
+ 	tune+       0x002e8144
+ 	tune-       0x002f8148
+ 	mem         0x00318145
+ 	scan        0x00278151
+
+ 	display     0x0034811f
+ 	KEY_EJECTCD       0x0035815c
+ 	KEY_REWIND        0x00228118
+ 	KEY_FASTFORWARD        0x00218110
+ 	KEY_RECORD         0x002b810a
+ 	KEY_AGAIN     0x0038815a
+ 	KEY_PREVIOUS        0x00238107
+ 	KEY_NEXT        0x00248114
+ 	time/shift  0x00338108
+ 	KEY_STOP        0x0020811d
+ 	KEY_PLAYPAUSE  0x001f8109
+
+        KEY_PLAYPAUSE  0x0080811d
+        stop-eject  0x00238107
+        mode-       0x00ff1080
+        mode+       0x00ff1180
+  end codes
+end remote
+

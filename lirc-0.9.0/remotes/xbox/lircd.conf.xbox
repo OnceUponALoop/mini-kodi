@@ -1,0 +1,58 @@
+#lirc.conf.xbox
+# Please make this file available to others
+# by sending it to <lirc@bartelmus.de>
+#
+# this config file was automatically generated
+# using lirc-0.8.2-CVS(default) on Mon Aug 25 09:04:22 2008
+#
+# contributed by 
+#
+# brand:                       xbox.conf
+# model no. of remote control: 
+# devices being controlled by this remote:
+#
+
+begin remote
+
+  name  xbox.conf
+  bits            8
+  eps            30
+  aeps          100
+
+  one             0     0
+  zero            0     0
+  gap          163983
+  min_repeat      15
+  toggle_bit_mask 0x0
+
+      begin codes
+          MENU                     0xF7
+          DISPLAY                  0xD5
+          TITLE                    0xE5
+          INFO                     0xC3
+          EXIT                     0xD8
+          UP                       0xA6
+          DOWN                     0xA7
+          LEFT                     0xA9
+          RIGHT                    0xA8
+          SELECT                   0x0B
+          SKIP-                    0xDD
+          SKIP+                    0xDF
+          REW                      0xE2
+          FF                       0xE3
+          STOP                     0xE0
+          1                        0xCE
+          2                        0xCD
+          PAUSE                    0xE6
+          PLAY                     0xEA
+          3                        0xCC
+          4                        0xCB
+          5                        0xCA
+          6                        0xC9
+          7                        0xC8
+          8                        0xC7
+          9                        0xC6
+          0                        0xCF
+      end codes
+
+end remote

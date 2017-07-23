@@ -1,0 +1,11 @@
+Makefile
+Makefile.in
+.deps
+.libs
+lircd.simrec
+lircd.simsend
+lircd
+lircmd
+input_map.inc
+irrecord
+slinke

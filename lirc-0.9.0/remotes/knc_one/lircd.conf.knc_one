@@ -1,0 +1,62 @@
+#
+# this config file was automatically generated
+# using lirc-0.6.3 on Tue Apr 10 18:39:55 2001
+#
+# contributed by Ulrich Mueller <ulrich.mueller42@web.de>
+#
+# brand:             KNC ONE
+# model:             TV Station (-/SE/PRO/RDS)
+#
+# brand:             Anubis
+# model:             Typhoon TView Tuner (-/Stereo/RDS)
+#
+
+begin remote
+
+  name  lircd.conf
+  bits            8
+  eps            30
+  aeps          100
+
+  one             0     0
+  zero            0     0
+  gap          199992
+  toggle_bit      0
+
+
+      begin codes
+          TV/FM                    0x000000000000001C
+          KEY_OK                       0x0000000000000015
+          KEY_F1                       0x000000000000000B
+          KEY_POWER                    0x0000000000000012
+          AV/TV                    0x0000000000000011
+          TELETEXT                 0x000000000000000F
+          FULLSCREEN               0x0000000000000013
+          KEY_MUTE                     0x0000000000000010
+          KEY_1                        0x0000000000000001
+          KEY_2                        0x0000000000000002
+          KEY_3                        0x0000000000000003
+          KEY_4                        0x0000000000000004
+          KEY_5                        0x0000000000000005
+          KEY_6                        0x0000000000000006
+          KEY_7                        0x0000000000000007
+          KEY_8                        0x0000000000000008
+          KEY_9                        0x0000000000000009
+          KEY_0                        0x0000000000000000
+          KEY_CHANNELUP                      0x000000000000001A
+          KEY_CHANNELDOWN                      0x000000000000001E
+          KEY_VOLUMEUP                     0x000000000000001B
+          KEY_VOLUMEDOWN                     0x000000000000001F
+          SNAPSHOT                 0x000000000000000A
+          100+                     0x0000000000000017
+          KEY_RECORD                   0x000000000000000D
+          KEY_PAUSE                    0x000000000000000E
+          KEY_PLAY                     0x000000000000001D
+          KEY_STOP                     0x0000000000000019
+          KEY_MENU                     0x0000000000000016
+          KEY_ESC                      0x0000000000000014
+          KEY_KPMINUS                        0x0000000000000018
+          KEY_KPPLUS                        0x000000000000000C
+      end codes
+
+end remote

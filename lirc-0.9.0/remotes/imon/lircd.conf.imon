@@ -1,0 +1,79 @@
+#
+# contributed by Venky Raju (dev@venky.ws)
+#
+# brand: Soundgraph
+# model no. of remote control: iMON MultiMedian
+#
+# devices being controlled by this remote: HTPC
+#
+
+begin remote
+
+  name           IMON_MultiMedian
+  bits           16
+  flags          SPACE_ENC|CONST_LENGTH
+  eps            30
+  aeps           130
+
+  header         9000  4500
+  one            625   1625
+  zero           625   375
+  ptrail         625
+  repeat         8875  2125
+  pre_data_bits  16
+  pre_data       0x609F
+  gap            100000
+  toggle_bit     0
+
+  frequency    38000
+  duty_cycle   33
+
+      begin codes
+          KEY_EXIT                 0x00000000000000FF
+          KEY_POWER                    0x000000000000807F
+          KEY_1                        0x00000000000040BF
+          KEY_2                        0x000000000000C03F
+          KEY_3                        0x00000000000020DF
+          KEY_4                        0x000000000000A05F
+          KEY_5                        0x000000000000609F
+          KEY_6                        0x000000000000E01F
+          KEY_7                        0x00000000000010EF
+          KEY_8                        0x000000000000906F
+          KEY_9                        0x00000000000050AF
+          KEY_0                        0x000000000000D02F
+          Windows                  0x00000000000030CF
+          KEY_MENU                     0x000000000000B04F
+          App.Launcher             0x000000000000708F
+          Function                 0x000000000000F00F
+          Task.Switcher            0x00000000000008F7
+          KEY_BACK                     0x0000000000008877
+          KEY_SELECT                   0x00000000000048B7
+          KEY_EJECTCD                    0x0000000000009867
+          KEY_DELETE                   0x00000000000018E7
+          KEY_UP                       0x000000000000C837
+          KEY_RIGHT                    0x0000000000006897
+          KEY_DOWN                     0x000000000000E817
+          KEY_LEFT                     0x00000000000028D7
+          KEY_ENTER                    0x000000000000A857
+          KEY_VOLUMEDOWN                     0x00000000000058A7
+          KEY_VOLUMEUP                     0x000000000000D827
+          KEY_MUTE                     0x00000000000038C7
+          KEY_PLAY                     0x000000000000B847
+          KEY_PAUSE                    0x0000000000007887
+          KEY_PREVIOUS                     0x000000000000F807
+          KEY_NEXT                     0x00000000000002FD
+          KEY_REWIND                      0x000000000000827D
+          KEY_FORWARD                      0x00000000000042BD
+          KEY_STOP                     0x000000000000C23D
+          KEY_OPEN                     0x00000000000022DD
+          KEY_RECORD                      0x000000000000A25D
+          KEY_BOOKMARKS                 0x000000000000629D
+          Thumbnail                0x000000000000E21D
+          Aspect                   0x00000000000012ED
+          KEY_DVD                 0x000000000000926D
+          DVD.Caption              0x00000000000052AD
+          DVD.Language             0x000000000000D22D
+          Full.Screen              0x00000000000032CD
+      end codes
+
+end remote

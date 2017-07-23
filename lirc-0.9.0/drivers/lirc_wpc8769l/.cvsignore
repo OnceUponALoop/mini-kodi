@@ -1,0 +1,12 @@
+.deps
+.lirc_wpc8769l.o.flags
+.lirc_wpc8769l.ko.cmd
+.lirc_wpc8769l.mod.o.cmd
+.lirc_wpc8769l.o.cmd
+.tmp_versions
+lirc_wpc8769l.ko
+lirc_wpc8769l.mod.c
+Makefile.in
+Makefile
+Module.symvers
+Modules.symvers

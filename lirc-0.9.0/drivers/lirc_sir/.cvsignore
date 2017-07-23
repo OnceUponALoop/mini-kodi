@@ -1,0 +1,12 @@
+.deps
+.lirc_sir.o.flags
+.lirc_sir.ko.cmd
+.lirc_sir.mod.o.cmd
+.lirc_sir.o.cmd
+.tmp_versions
+lirc_sir.ko
+lirc_sir.mod.c
+Makefile.in
+Makefile
+Module.symvers
+Modules.symvers
