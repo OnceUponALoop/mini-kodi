@@ -1,0 +1,19 @@
+[Unit]
+Description=Sonarr Daemon
+After=syslog.target network.target
+
+[Service]
+User=kodi
+Group=kodi
+
+Type=simple
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /home/kodi/.config/NzbDrone
+ExecStartPre=/bin/chown nzbdrone:nzbdrone -R /home/kodi/.config/NzbDrone
+ExecStart=/usr/bin/mono /opt/NzbDrone/NzbDrone.exe -nobrowser
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
