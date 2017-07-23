@@ -1,0 +1,11 @@
+[Unit]
+Description=LIRC IRExec (root)
+After=lirc.service
+Requires=lirc.service
+
+[Service]
+ExecStart=/usr/bin/irexec --daemon /etc/lirc/lircrc.conf
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
