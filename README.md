@@ -266,7 +266,7 @@ Reference: [SABnzbd Documentation](https://sabnzbd.org/wiki/installation/install
 
 - Install Mono
   ```
-  sudo apt update && sudo apt install libmono-cil-dev
+  sudo apt update && sudo apt install libmono-cil-dev curl mediainfo
   ```
   
 - Install Sonarr Repository
@@ -281,6 +281,7 @@ Reference: [SABnzbd Documentation](https://sabnzbd.org/wiki/installation/install
   ```
 
 - Create a systemd service for Sonarr
+  **Note:** The user and pathing in the service file might need to be adjusted to match your system/user info.
   ```
   sudo cp $HOME/mini-kodi/config-files/sonarr.service /etc/systemd/system/
   ```
@@ -289,4 +290,27 @@ Reference: [SABnzbd Documentation](https://sabnzbd.org/wiki/installation/install
   ```
   sudo systemctl enable sonarr.service
   sudo systemctl start  sonarr.service
+  ```
+  
+## Install Radarr
+There's still no repo packages available for radarr so we'll have to install it manually. This isn't too bad especially since it auto-updates anyway.
+
+- Install Radarr
+  ```
+  cd /opt
+  sudo wget $( curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep linux.tar.gz | grep browser_download_url | head -1 | cut -d \" -f 4 )
+  sudo tar -xvzf Radarr.develop.*.linux.tar.gz
+  sudo rm -f /opt/Radarr.develop.*.linux.tar.gz
+  ```
+  
+- Create a systemd service for Sonarr
+  **Note:** The user and pathing in the service file might need to be adjusted to match your system/user info.
+  ```
+  sudo cp $HOME/mini-kodi/config-files/radarr.service /etc/systemd/system/
+  ```
+  
+- Enable and start it
+  ```
+  sudo systemctl enable radarr.service
+  sudo systemctl start  radarr.service
   ```
