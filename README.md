@@ -61,6 +61,7 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
       - `Standard System Utilities`
       - `OpenSSH Server`
 
+
 ## Install NVidia Driver
 The test machine i'm using is a [Zotac ID40+](https://www.zotac.com/us/product/mini_pcs/id40-plus) with an NVidia ION GT218 chipset.
 
@@ -73,7 +74,7 @@ I checked the NVidia site for the latest available driver release and it indicat
   
 - Install the recommended version
   ```
-  sudo apt update && sudo apt install nvidia-340
+  sudo apt update && sudo apt install nvidia-340 vdpauinfo
   ```
 
 ## Install Kodi
@@ -113,7 +114,11 @@ Now that the OS is installed it's time to install everything else we need.
   greeter-session=lightdm-gtk-greeter
   ```
   
-- Test it by killing lightdm, it should restart with Kodi
+- Test it by launching lightdm
+  ```
+  sudo systemctl start ligthdm
+  ```
+  If it has already started, test it by killing lightdm, it should restart with Kodi
   ```
   sudo killall lightdm
   ```
@@ -122,9 +127,14 @@ Now that the OS is installed it's time to install everything else we need.
 I have an old XBOX DVD kit receiver that I like using. It's getting complicated to keep it working as it seems lirc dropped support for it. 
 If you've got a different remote/receiver check the [Kodi wiki](http://kodi.wiki/view/HOW-TO:Set_up_LIRC) for setup instructions.
 
+- Install useful stuff
+  ```
+  sudo apt install git vim-nox
+  ```
+
 - Clone this repo to user home
   ```
-  git clone clone https://github.com/OnceUponALoop/mini-kodi.git $HOME/mini-kodi
+  git clone https://github.com/OnceUponALoop/mini-kodi.git $HOME/mini-kodi
   ```
 
 - Copy lirc source
@@ -169,10 +179,17 @@ If you've got a different remote/receiver check the [Kodi wiki](http://kodi.wiki
   sudo cp $HOME/mini-kodi/config-files/lirc-module-rebuild /etc/kernel/postinst.d
   sudo chmod 755 /etc/kernel/postinst.d/lirc-module-rebuild
   ```
-  
+
 - (Optional) Test it by reinstalling the current kernel
   ```
   sudo apt install --reinstall linux-image-$(uname -r)
+  ```
+  
+- Restart lirc & kodi to test functionality
+  ```
+  sudo udevadm trigger
+  sudo systemctl restart lirc
+  killall -HUP kodi.bin
   ```
 
 ## Configure IRExec
@@ -191,7 +208,85 @@ In my example i'm using it to restart kodi and remount the network shares, it co
   sudo cp $HOME/mini-kodi/config-files/lircrc.conf /etc/lirc/
   ```
   
-  
-  
+- Enable and start the irexec service
+  ```
+  sudo systemctl enable irexec-root.service
+  sudo systemctl start irexec-root.service
+  ```
 
+## Install SABNzbd
+Reference: [SABnzbd Documentation](https://sabnzbd.org/wiki/installation/install-ubuntu-repo)
+
+- Install sabnzbd repositories
+  ``` 
+  sudo add-apt-repository ppa:jcfp/nobetas
+  sudo add-apt-repository ppa:jcfp/sab-addons
+  ```
   
+- Install sabnzbd and dependencies
+  ```
+  sudo apt update && sudo apt install sabnzbdplus software-properties-common python-sabyenc par2-tbb
+  ```  
+  
+- Enable auto-startup
+  ```
+  sudo systemctl enable sabnzbdplus
+  ```
+
+- Edit the configuration file `/etc/default/sabnzbdplus`
+  ```
+  # [required] user or uid of account to run the program as:
+  USER=kodi
+  
+  # [optional] full path to the configuration file of your choice;
+  #            otherwise, the default location (in $USER's home
+  #            directory) is used:
+  CONFIG=/home/kodi/.config/sabnzbd/sabnzbd.ini
+  
+  # [optional] hostname/ip and port number to listen on:
+  HOST=
+  PORT=8081
+  
+  # [optional] extra command line options, if any:
+  EXTRAOPTS=
+  ```
+
+- Start it
+  ```
+  sudo systemctl start sabnzbdplus
+  ```
+  
+## Install Sonarr
+
+- Install Mono Repositories
+  ```
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  echo "deb http://download.mono-project.com/repo/ubuntu xenial main" | sudo tee /etc/apt/sources.list.d/mono-official.list
+  ```
+
+- Install Mono
+  ```
+  sudo apt update && sudo apt install libmono-cil-dev
+  ```
+  
+- Install Sonarr Repository
+  ```
+  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
+  sudo echo "deb http://apt.sonarr.tv/ master main" | sudo tee /etc/apt/sources.list.d/sonarr.list
+  ```
+  
+- Install Sonarr
+  ```
+  sudo apt update && sudo apt install nzbdrone
+  ```
+
+- Create a systemd service for Sonarr
+  ```
+  sudo cp $HOME/mini-kodi/config-files/sonarr.service /etc/systemd/system/
+  ```
+  
+- Enable and start it
+  ```
+  sudo systemctl enable sonarr.service
+  sudo systemctl start  sonarr.service
+  ```
