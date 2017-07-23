@@ -61,6 +61,20 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
       - `Standard System Utilities`
       - `OpenSSH Server`
 
+## Install NVidia Driver
+The test machine i'm using is a [Zotac ID40+](https://www.zotac.com/us/product/mini_pcs/id40-plus) with an NVidia ION GT218 chipset.
+
+I checked the NVidia site for the latest available driver release and it indicated **340.102**.
+
+- Add the graphics drivers PPA
+  ```
+  sudo add-apt-repository ppa:graphics-drivers/ppa
+  ```
+  
+- Install the recommended version
+  ```
+  sudo apt update && sudo apt install nvidia-340
+  ```
 
 ## Install Kodi
 Now that the OS is installed it's time to install everything else we need.
@@ -181,4 +195,3 @@ In my example i'm using it to restart kodi and remount the network shares, it co
   
 
   
-
