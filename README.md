@@ -1,8 +1,9 @@
-# mini-kodi
-Minimal Kodi Installation
+# Minimak Kodi Installation
 
-TO-DO: Reconsider using MinimalCD since it doesn't support EFI. This could be a problem on NUCs and such.
-For now if you don't have to dual boot then this should still be fine.
+Instructions for installing and configuring a minimal Kodi media center machine, to fill the gap left after the XBMC/Kodi-buntu distributions were retired. 
+
+The Ubuntu-Desktop distribution is just too bloated for a "setup-once and forget about it" machine.
+
 
 ## Install Mini-Ubuntu
 The goal is to install only what's absolutely necessary for kodi operation. 
@@ -244,7 +245,7 @@ Reference: [SABnzbd Documentation](https://sabnzbd.org/wiki/installation/install
   CONFIG=/home/kodi/.config/sabnzbd/sabnzbd.ini
   
   # [optional] hostname/ip and port number to listen on:
-  HOST=
+  HOST=0.0.0.0
   PORT=8081
   
   # [optional] extra command line options, if any:
