@@ -1,11 +1,11 @@
-# Minimak Kodi Installation
+# Minimal Kodi Installation
 
 Instructions for installing and configuring a minimal Kodi media center machine, to fill the gap left after the XBMC/Kodi-buntu distributions were retired. 
 
 The Ubuntu-Desktop distribution is just too bloated for a "setup-once and forget about it" machine.
 
 
-## Install Mini-Ubuntu
+## Install a Minimal Ubuntu Dist.
 The goal is to install only what's absolutely necessary for kodi operation. 
 
 [Ubuntu MinimalCD](https://help.ubuntu.com/community/Installation/MinimalCD) was chosen initially as it allows us to specify packages or package groups manually during installation but it doesn't support EFI out of the box and requires an active internet connection during installation as the CD doesn't contain any.
@@ -319,6 +319,7 @@ There's still no repo packages available for radarr so we'll have to install it 
 ## OS Customization
 
 - **Audio Configuration**
+
   If you're using an NVidia card or an NVidia ION box (ex Zotac Zbox) you'll soon realize that there's no audio in Kodi. 
   
   This is due to the fact that NVidia presents the wrong default device for audio.
@@ -378,6 +379,7 @@ There's still no repo packages available for radarr so we'll have to install it 
     Restarting pulse and Kodi should be enough but I haven't tested that.
 
 - **Enable Kodi Power Control**
+  
   By default Kodi lacks permissions to Suspend/Wake/Shutdown/Poweroff.
   Reference: [Kodi Wiki](http://kodi.wiki/view/HOW-TO:Suspend_and_wake_in_Ubuntu)
   - Install dependencies, they should all already be installed but better safe than sorry!
@@ -399,7 +401,9 @@ There's still no repo packages available for radarr so we'll have to install it 
     sudo systemctl restart polkitd
     ```
 
-- **Enable USB automount, set mount name to label**
+- **Enable USB automount**
+
+  Configure it to use the USB label as the mount name.
   - Create file `/etc/udev/rules.d/11-media-by-label-auto-mount.rules` with the following content
     ```
     # Start at sdb to avoid system hard drive
@@ -430,6 +434,7 @@ There's still no repo packages available for radarr so we'll have to install it 
     ```
     
 - **Hide grub menu**
+
   We can hide the grub menu while still retaining the ability to use it by using the HIDDEN options
   - Edit `/etc/default/grub`
     ```
@@ -450,6 +455,7 @@ There's still no repo packages available for radarr so we'll have to install it 
     ```
 
 - **Install Kodi Plymouth Theme**
+
   Plymouth is a Fedora project that enables graphical diplay during bootup. We're going to change the default theme to a Kodi one to make bootup look nicer.
   - Install dependencies
     ```
@@ -507,6 +513,7 @@ There's still no repo packages available for radarr so we'll have to install it 
     ```
     
 - **Enable Auto-Update**
+
   - Reference: [Ubuntu AutomaticSecurityUpdates](https://help.ubuntu.com/community/AutomaticSecurityUpdates)
   - Edit `/etc/apt/apt.conf.d/50unattended-upgrades`
   - Enable `"${distro_id}:${distro_codename}-updates";`
