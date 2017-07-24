@@ -30,7 +30,7 @@ cd "${lircSrc}"
 
 # Build & install
 cd "${lircSrc}/drivers/lirc_xbox"
-make && make install
+maeke clean && make && make install
 
 # Restart lirc service
 systemctl start lirc
