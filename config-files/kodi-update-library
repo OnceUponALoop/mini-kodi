@@ -1,0 +1,37 @@
+#!/bin/bash
+#===================================================================================
+# Title        : kodi-update-library
+#
+# Description  : Issues an API call to kodi to update the video library
+#
+# Author       : OnceUponALoop
+#
+# Last Revised : 07/22/2017
+#
+#===================================================================================
+
+# Determine script path and name
+scriptName=$( basename $0 )
+scriptPath=$(dirname "$(readlink -f "$0")")
+
+# kodi Host/IP
+kodiHost=127.0.0.1
+
+# kodi HTTP Control port
+kodiPort=8080
+
+# Calculated kodi URL
+kodiURL="http://${kodiHost}:${kodiPort}/jsonrpc"
+
+# Issue library update api call
+curl -v                             \
+-H "Accept: application/json"       \
+-H "Content-type: application/json" \
+-d                                  \
+'{
+    "id":"irexec-script",
+    "jsonrpc":"2.0",
+    "method":
+        "VideoLibrary.Scan"
+}' ${kodiURL}
+
