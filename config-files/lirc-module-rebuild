@@ -1,37 +1,57 @@
 #!/bin/bash
 #===================================================================================
-# Title        : lirc-module-rebuild.sh
+# Title        : lirc-module-rebuild
 #
 # Description  : Rebuilds lirc_xbox kernel module after kernel updates
 #
 # Author       : OnceUponALoop
 #
-# Last Revised : 07/22/2017
+# Last Revised : 10/23/2017
 #
 #===================================================================================
 
 # Lirc Souce Locaiton
 lircSrc=/usr/local/src/lirc-0.9.0
+logFile=/var/log/lirc-module-rebuild.log
+
+# Kernel version - provided by kernel-postinst
+# default to current version if not provided
+kernel=${1:-$(uname -r)}
 
 # debug - check if ran
-echo "# lirc-module-rebuild.sh ran on $(date) " > /tmp/lirc-module-rebuild.log
+echo "# lirc-module-rebuild.sh ran on $(date) " > ${logFile}
+echo "# New Kernel is: ${newKernel}"           >> ${logFile}
 
 # Stop lirc
-systemctl stop lirc
+echo "= Stopping lirc" >> ${logFile}
+systemctl stop lirc    >> ${logFile}
 
 # Unload kernel modules
+echo "= Unload lirc kernel modules" >> ${logFile}
 rmmod lirc_dev  > /dev/null 2>&1
 rmmod lirc_xbox > /dev/null 2>&1
 
 # Prepare
 cd "${lircSrc}"
-./autogen.sh
-./configure --with-driver=xbox
+echo "= Autogen"   >> ${logFile}
+./autogen.sh       >> ${logFile} 2>&1
+
+echo "= Configure" >> ${logFile}
+./configure --with-driver=xbox                  \
+  --with-kerneldir=/lib/modules/${kernel}/build \
+  --with-moduledir=/lib/modules/${kernel}/misc     >> ${logFile} 2>&1
 
 # Build & install
 cd "${lircSrc}/drivers/lirc_xbox"
-maeke clean && make && make install
+echo "= Make clean" >> ${logFile}
+make clean >> ${logFile} 2>&1
+
+echo "= Make lirc_xbox" >> ${logFile}
+make >> ${logFile} 2>&1
+
+echo "= Install lirc_xbox" >> ${logFile}
+make install >> ${logFile} 2>&1
 
 # Restart lirc service
-systemctl start lirc
-
+echo "= Restart lirc" >> ${logFile}
+systemctl start lirc  >> ${logFile} 2>&1
