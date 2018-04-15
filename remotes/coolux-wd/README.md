@@ -1,4 +1,4 @@
-###Remote Info
+### Remote Info
 
 - Manufacturer: Coolux
 - Model # : LYSB01DVU2QSY-ELECTRNCS
@@ -48,7 +48,7 @@ The following is a presentation of the Flirc key mapping for the above remote. T
 
 _* Customized in Kodi Keymap_                       _** Customized in xkeybind_
 
-####Flirc Dump
+#### Flirc Dump
 
 This is the output produced by `flirc_util keys`
 
