@@ -2,11 +2,15 @@
 Description=Radarr Daemon
 After=syslog.target network.target
 
+# Require USB Device Mount
+# RequiresMountsFor=/home/kodi/MediaStore
+
 [Service]
 User=kodi
 Group=kodi
 
 Type=simple
+PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -p /home/kodi/.config/Radarr
 ExecStartPre=/bin/chown kodi:kodi -R /home/kodi/.config/Radarr
 ExecStart=/usr/bin/mono /opt/Radarr/Radarr.exe --nobrowser

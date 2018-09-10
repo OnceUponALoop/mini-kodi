@@ -2,6 +2,9 @@
 Description=Sonarr Daemon
 After=syslog.target network.target
 
+# Require USB Device Mount
+# RequiresMountsFor=/home/kodi/MediaStore
+
 [Service]
 User=kodi
 Group=kodi
