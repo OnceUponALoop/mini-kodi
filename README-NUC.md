@@ -192,7 +192,7 @@ Configure time synchronization with chrony and set the timezone - it might not s
 - Update apt and install kodi
 
   ```bash
-  sudo bash -c 'apt update && apt install kodi'
+  sudo bash -c 'apt update && apt install kodi kodi-inputstream-adaptive kodi-inputstream-rtmp'
   ```
 
 - Configure lightdm to start kodi on bootup
