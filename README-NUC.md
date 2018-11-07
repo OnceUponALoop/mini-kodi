@@ -508,18 +508,19 @@ There's still no repo packages available for radarr so we'll have to install it 
 - **Hide grub menu**
 
   We can hide the grub menu while still retaining the ability to use it by using the HIDDEN options
-  - Edit `/etc/default/grub`
+  - Create a new file `/etc/default/grub.d/99-kodi-splash.cfg`
     ```
+    # Enable splash and reduce grub timeout
     GRUB_DEFAULT=0
     GRUB_TIMEOUT_STYLE=countdown
-    GRUB_TIMEOUT=5
+    GRUB_TIMEOUT=3
     GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
     GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
     GRUB_CMDLINE_LINUX=""
     GRUB_GFXMODE=1920x1080
     GRUB_GFXPAYLOAD_LINUX=keep
     ```
-
+  
   - Recreate it to apply settings
     ```
     sudo update-grub
