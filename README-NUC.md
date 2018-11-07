@@ -52,6 +52,9 @@ Burn the ISO to a DVD or use a tool like [UNetBootIn](https://unetbootin.github.
     | Pick a username    | kodi  |
     | Choose a password  | ***   |
 
+  
+  - Skip the Snaps unless you need one
+  
   - Finished Reboot Now
 
 
@@ -133,11 +136,18 @@ Install the latest patches for the currently installed packages.
 
 The xbuntu-core is a lightweight desktop environment, provides us with the least amount of packages needed for a functioning X11 (graphical) environment to support kodi.
 
-Note: The carat in the command below is needed, it [specifies a tasksel task](https://help.ubuntu.com/community/Tasksel#Usage_.28alternative.29).
+- Enable [Universe Repository](https://help.ubuntu.com/community/Repositories/Ubuntu#The_Four_Main_Repositories)
 
-```bash
-sudo apt install xubuntu-core^
-```
+    ```bash
+    sudo add-apt-repository universe
+    ```
+- Install xubuntu-core
+    Note: The carat in the command below is needed, it [specifies a tasksel task](https://help.ubuntu.com/community/Tasksel#Usage_.28alternative.29).
+    
+    ```bash
+    sudo apt install xubuntu-core^
+    ```
+
 
 ### Configure Time
 
@@ -161,24 +171,7 @@ Configure time synchronization with chrony and set the timezone - it might not s
   sudo timedatectl set-timezone 'America/Chicago'
   ```
 
-### Unecessary Tweaks
-
-- Upgrade vim
-
-  This is a personal preference and not really necessary but I like to upgrade the standard vim.basic
-
-  ```bash
-  sudo apt install vim-nox -y
-  ```
-
-
 ## Install Kodi
-
-- Enable [Universe Repository](https://help.ubuntu.com/community/Repositories/Ubuntu#The_Four_Main_Repositories)
-
-  ```bash
-  sudo add-apt-repository universe
-  ```
 
 - Add Kodi PPA Repository
 
@@ -221,30 +214,6 @@ Configure time synchronization with chrony and set the timezone - it might not s
   ```bash
   sudo killall lightdm
   ```
-
-## Configure IRExec
-Even if we don't use lirc for remote configuration we can still use the lirc irexec binary in daemon mode to set up remote control combo actions.
-
-In my example i'm using it to restart kodi and remount the network shares, it comes in handy as a quick restart if kodi hangs.
-
-- Create service file `/etc/systemd/system/irexec-root.service` 
-  ```bash
-  sudo cp $HOME/mini-kodi/config-files/irexec-root.service /etc/systemd/system/
-  ```
-  
-- Create the configuration file that defines the combo and actions
-  In this example i'm using jennys number `867-5309` to restart kodi and remount the drives
-  ```bash
-  sudo cp $HOME/mini-kodi/config-files/lircrc.conf /etc/lirc/
-  ```
-  
-- Enable and start the irexec service
-  ```bash
-  sudo systemctl enable irexec-root.service
-  sudo systemctl start irexec-root.service
-  ```
-
-
 
 ## Configure Remote
 
