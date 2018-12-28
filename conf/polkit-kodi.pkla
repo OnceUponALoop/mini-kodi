@@ -1,0 +1,6 @@
+[Actions for kodi user]
+Identity=unix-user:KODI_USER
+Action=org.freedesktop.login1.*;org.freedesktop.udisks2.*
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes

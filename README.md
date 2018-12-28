@@ -177,7 +177,7 @@ We'll create separate users and a common group for all the services (kodi, sonar
   - Add kodi to the group
 
     ```bash
-    sudo usermod --groups media ${USER}
+    sudo usermod --append --groups media ${USER}
     ```
 
 - **Users**
@@ -220,7 +220,16 @@ We'll create separate users and a common group for all the services (kodi, sonar
 
   - Plex Media Server
 
-    TODO Plex user instructions
+    ```bash
+    sudo useradd                         \
+     --comment  "Plex User"              \
+     --shell    /usr/sbin/nologin        \
+     --home-dir /var/lib/plexmediaserver \
+     --groups   media                    \
+     --system   --user-group             \
+     plex
+    ```
+
 
 ### Clone mini-kodi Repo
 
@@ -281,7 +290,7 @@ The repository contains various config files and scripts that will be used throu
 
     ```bash
     find $HOME/mini-kodi/runconf  -type f \
-    | xargs -I {} sed -i 's/PLEX_USER/radarr/g; s/PLEX_GROUP/radarr/g' {}
+    | xargs -I {} sed -i 's/PLEX_USER/plex/g; s/PLEX_GROUP/plex/g' {}
     ```
 
 
@@ -317,16 +326,6 @@ The repository contains various config files and scripts that will be used throu
 
   ```
   sudo cp $HOME/mini-kodi/runconf/lightdm-kodi.conf /etc/lightdm/lightdm.conf.d/kodi.conf
-  ```
-
-
-
-  ```ini
-  [Seat:*]
-  autologin-user=kodi
-  autologin-user-timeout=0
-  autologin-session=kodi
-  greeter-session=lightdm-gtk-greeter
   ```
 
 - Test it by launching lightdm
@@ -373,22 +372,9 @@ Reference: [SABnzbd Documentation](https://sabnzbd.org/wiki/installation/install
   sudo systemctl enable sabnzbdplus
   ```
 
-- Edit the configuration file `/etc/default/sabnzbdplus`
-  ```ini
-  # [required] user or uid of account to run the program as:
-  USER=sabnzbd
-  
-  # [optional] full path to the configuration file of your choice;
-  #            otherwise, the default location (in $USER's home
-  #            directory) is used:
-  CONFIG=/var/opt/sabnzbdplus/config.ini
-  
-  # [optional] hostname/ip and port number to listen on:
-  HOST=0.0.0.0
-  PORT=8081
-  
-  # [optional] extra command line options, if any:
-  EXTRAOPTS=
+- Replace the configuration file `/etc/default/sabnzbdplus`
+  ```bash
+  sudo cp $HOME/runconf/systemd/sabnzbd-dafaults.init /etc/default/sabnzbdplus
   ```
 
 - Start it
@@ -431,12 +417,12 @@ Reference: [Mono](https://www.mono-project.com/download/stable/#download-lin) & 
 
   **Note:** The user and pathing in the service file might need to be adjusted to match your system/user info.
 
-  ```
-  sudo cp $HOME/mini-kodi/config-files/sonarr.service /etc/systemd/system/
+  ```bash
+  sudo cp $HOME/mini-kodi/runconf/systemd/sonarr.service /etc/systemd/system/
   ```
 
 - Enable and start it
-  ```
+  ```bash
   sudo systemctl enable sonarr.service
   sudo systemctl start  sonarr.service
   ```
@@ -496,13 +482,13 @@ There's still no repo packages available for radarr so we'll have to install it 
 
   **Note:** The user and pathing in the service file might need to be adjusted to match your system/user info.
 
-  ```
-  sudo cp $HOME/mini-kodi/config-files/radarr.service /etc/systemd/system/
+  ```bash
+  sudo cp $HOME/mini-kodi/runconf/systemd/radarr.service /etc/systemd/system/
   ```
 
 - Enable and start it
 
-  ```
+  ```bash
   sudo systemctl enable radarr.service
   sudo systemctl start  radarr.service
   ```
@@ -527,9 +513,32 @@ There's still no repo packages available for radarr so we'll have to install it 
 
 - Restart the service to use the new port
 
-  ```
+  ```bash
   sudo systemctl restart radarr.service
   ```
+
+## Install Plex Media Server
+
+- Trust Plex repository key
+
+  ```bash
+  curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
+  ```
+
+- Add Plex repository
+
+  ```bash
+  echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+  ```
+
+- Install Plex Media Server
+
+  ```bash
+  sudo bash -c 'apt update && apt install plexmediaserver'
+  ```
+
+  Ignore the installer prompt to replace the apt repo file.
+
 
 ## OS Customization
 
@@ -538,7 +547,7 @@ There's still no repo packages available for radarr so we'll have to install it 
   If you're using an NVidia card or an NVidia ION box (ex Zotac Zbox) you'll soon realize that there's no audio in Kodi. 
 
   This is due to the fact that NVidia presents the wrong default device for audio.
-  Reference: [NVidia HDMI Audio (Under-Enumeration of Logical Devices)](http://http.download.nvidia.com/XFree86/gpu-hdmi-audio-document/index.html#under_enumeration_of_logical_devices)
+  Reference: [NVidia HDMI Audio (Under-Enumeration of Logical Devices)](http://http.download.nvidia.com/XFree86/gpu-hdmi-audio-document/index.html#under_enumeration_of_logical_devices) & [ArchiWiki](https://wiki.archlinux.org/index.php/PulseAudio/Examples#HDMI_output_configuration)
 
   - List all audio devices
     ```
@@ -605,17 +614,13 @@ There's still no repo packages available for radarr so we'll have to install it 
     ```bash
     sudo apt install policykit-1 upower acpi-support
     ```
-  - Create file `/var/lib/polkit-1/localauthority/50-local.d/kodi.pkla` with the following content
-    **NOTE:** The username `unix-user:kodi` will need to match your kodi user
 
-    ```ini
-    [Actions for kodi user]
-    Identity=unix-user:kodi
-    Action=org.freedesktop.login1.*;org.freedesktop.udisks2.*
-    ResultAny=yes
-    ResultInactive=yes
-    ResultActive=yes
+  - Create file `/var/lib/polkit-1/localauthority/50-local.d/kodi.pkla` 
+
+    ```bash
+    sudo cp $HOME/mini-kodi/runconf/polkit-kodi.pkla /var/lib/polkit-1/localauthority/50-local.d/kodi.pkla
     ```
+
   - Restart polkit to apply the settings
     ```
     sudo systemctl restart polkit
@@ -658,15 +663,7 @@ There's still no repo packages available for radarr so we'll have to install it 
   We can hide the grub menu while still retaining the ability to use it by using the HIDDEN options
   - Create a new file `/etc/default/grub.d/99-kodi-splash.cfg`
     ```bash
-    # Enable splash and reduce grub timeout
-    GRUB_DEFAULT=0
-    GRUB_TIMEOUT_STYLE=countdown
-    GRUB_TIMEOUT=3
-    GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
-    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
-    GRUB_CMDLINE_LINUX=""
-    GRUB_GFXMODE=1920x1080
-    GRUB_GFXPAYLOAD_LINUX=keep
+    sudo cp $HOME/mini-kodi/runconf/grub-kodi-splash.cfg /etc/default/grub.d/99-kodi-splash.cfg
     ```
 
   - Recreate it to apply settings
@@ -682,50 +679,30 @@ There's still no repo packages available for radarr so we'll have to install it 
     sudo apt install fakeroot
     ```
   - Clone the git repo to a temp location
-    ```
+    ```bash
     git clone https://github.com/solbero/plymouth-theme-kodi-animated-logo.git /tmp/plymouth-theme-kodi
     ```
   - Navigate to repo and build the deb package
-    ```
+    ```bash
     cd /tmp/plymouth-theme-kodi
     ./build.sh
     ```
-    
+
   - Install the package
-    ```
+    ```bash
     sudo dpkg -i /tmp/plymouth-theme-kodi/plymouth-theme-kodi-animated-logo.deb
     ```
-    
-  - Ensure Plymouth is enabled
-    
-    Verify that the `/etc/default/grub` contains
-    - `GRUB_CMDLINE_LINUX` entry with `quiet` and `splash`
-    - `GRUB_GFXMODE` with a value matching your display (ex `auto`)
-    - `GRUB_GFXPAYLOAD_LINUX` with a value of `keep`
-    
-    If not edit it to match this
-    ```bash
-    GRUB_DEFAULT=0
-    GRUB_HIDDEN_TIMEOUT=5
-    GRUB_HIDDEN_TIMEOUT_QUIET=true
-    GRUB_TIMEOUT=0
-    GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
-    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
-    GRUB_CMDLINE_LINUX=""
-    GRUB_GFXMODE=1920x1080
-    GRUB_GFXPAYLOAD_LINUX=keep
-    ```
-    
-    Apply the settings by regenerating grub
+
+  - Update grub
     ```bash
     sudo update-grub
     ```
-    
+
   - Delete the source as we no longer need it
     ```bash
     cd ~/; rm -rf /tmp/plymouth-theme-kodi
     ```
-    
+
   - Reboot to test
     ```
     sudo reboot
@@ -749,7 +726,7 @@ There's still no repo packages available for radarr so we'll have to install it 
 
 
 
-  - Create the file `/etc/blacklist.d/disable-wifi.conf`
+  - Create the file `/etc/modprobe.d/disable-wifi.conf`
 
     ```bash
     # Disable Wifi Driver
