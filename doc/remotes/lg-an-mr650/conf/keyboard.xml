@@ -1,0 +1,48 @@
+<keymap>
+    <global>
+        <keyboard>
+            <!-- 
+                Custom Keymap      
+                Remote : coolux-wd
+                Model  : LYSB01DVU2QSY-ELECTRNCS
+                Link   : https://www.amazon.com/dp/B01DVU2QSY
+            -->
+            
+            <!-- Button: Green     -->
+            <!-- Action: Recent TV -->
+            <i mod="ctrl">ActivateWindow(Videos,RecentlyAddedEpisodes)</i>
+            
+            <!-- Button: Red           -->
+            <!-- Action: Recent Movies -->
+            <e mod="ctrl">ActivateWindow(Videos,RecentlyAddedMovies)</e>
+            
+            <!-- Button: Yellow        -->
+            <!-- Action: Music/Artists -->
+            <t mod="ctrl">ActivateWindow(Music,Artists)</t>
+            
+            <!-- Button: Blue    -->
+            <!-- Action: Weather -->
+            <m mod="ctrl">ActivateWindow(Weather)</m>
+            
+            <!-- Button: Next Page -->
+            <!-- Action: Page +    -->
+            <pageup>pagedown</pageup>
+            
+            <!-- Button: Prev Page -->
+            <!-- Action: Page -    -->
+            <pagedown>pageup</pagedown>
+            
+            <!-- Button: Search        -->
+            <!-- Action: Search Window -->
+            <s mod="ctrl,alt">ActivateWindow(11107)</s>
+            
+            <!-- Button: Search (Long Press)  -->
+            <!-- Action: Update Video Library -->
+            <p mod="ctrl,alt">XBMC.updatelibrary(Video)</p>
+            
+            <!-- Button: Audio             --> 
+            <!-- Action: Next Audio Stream -->
+            <a mod="ctrl">AudioNextLanguage</a>
+        </keyboard>
+    </global>
+</keymap>

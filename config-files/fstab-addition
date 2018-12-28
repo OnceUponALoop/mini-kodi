@@ -1,2 +1,0 @@
-# Kodi MediaStore
-PARTUUID=9fecaa14-9a03-4500-a528-9b87e70d8f0b /home/kodi/MediaStore ntfs-3g rw,user,auto,nofail,fmask=0177,dmask=0077,uid=1000 0 0

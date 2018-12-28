@@ -1,0 +1,3 @@
+# Kodi MediaStore
+PARTUUID=00000000-0000-0000-0000-000000000000 /srv/mediastore ntfs-3g rw,user,auto,nofail,fmask=0113,dmask=0002,uid=kodi,gid=media 0 0
+
