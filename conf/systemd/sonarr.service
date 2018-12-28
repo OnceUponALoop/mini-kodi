@@ -1,0 +1,22 @@
+[Unit]
+Description=Sonarr Daemon
+After=syslog.target network.target
+
+# Require USB Device Mount
+# RequiresMountsFor=/srv/mediastore
+
+[Service]
+User=SONR_USER
+Group=SONR_GROUP
+
+Type=simple
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/opt/Sonarr
+ExecStartPre=/bin/chown ${USER}: -R /var/opt/Sonarr
+ExecStart=/usr/bin/mono /opt/NzbDrone/NzbDrone.exe --nobrowser --data=/var/opt/Sonarr
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -5,7 +5,7 @@ KERNEL!="sd[b-z][0-9]", GOTO="media_by_label_auto_mount_end"
 IMPORT{program}="/sbin/blkid -o udev -p %N"
 
 # Ignore Kodi Store
-ENV{ID_FS_LABEL}=="MediaStore", GOTO="media_by_label_auto_mount_end"
+# ENV{ID_FS_LABEL}=="USBMediaStore", GOTO="media_by_label_auto_mount_end"
 
 # Get a label if present, otherwise specify one
 ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
@@ -16,7 +16,7 @@ ACTION=="add", ENV{mount_options}="realtime"
 
 # Filesystem-specific mount options
 ACTION=="add", ENV{ID_FS_TYPE}=="vfat|ntfs",
-ENV{mount_options}="$env{mount_options},utf8,gid=100,umask=002"
+ENV{mount_options}="$env{mount_options},utf8,gid=COMMON_GROUP,umask=0002"
 
 # Mount the device
 ACTION=="add", RUN+="/bin/mkdir -p /media/%E{dir_name}", RUN+="/bin/mount -o $env{mount_options} /dev/%k /media/%E{dir_name}"

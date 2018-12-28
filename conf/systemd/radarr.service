@@ -1,0 +1,22 @@
+[Unit]
+Description=Radarr Daemon
+After=syslog.target network.target
+
+# Require USB Device Mount
+# RequiresMountsFor=/srv/mediastore
+
+[Service]
+User=RADR_USER
+Group=RADR_GROUP
+
+Type=simple
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/opt/Radarr
+ExecStartPre=/bin/chown ${USER}: -R /var/opt/Radarr
+ExecStart=/usr/bin/mono /opt/Radarr/Radarr.exe --nobrowser --data=/var/opt/Radarr
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
